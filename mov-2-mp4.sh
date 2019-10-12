@@ -3,9 +3,10 @@
 
 # Variables
 root_folder="/mnt/nextcloud/"                                      # Where to scan
-installation_path="/var/www/nextcloud/public_html"  # Full path where nextcloud is installed, must not end with '/'
+installation_path="/var/www/core.arcza.net/nextcloud/public_html"  # Full path where nextcloud is installed, must not end with '/'
 old_extension=".mov"                                               # e.g. ".mov"
 new_extension=".mp4"                                               # e.g. ".mp4"
+safe_mode=true
 ignoregrep="DfsrPrivate"                                           # Ignore stderr messages from find that match this grep (e.g. 'Permission denied' for some folder name)
 
 
@@ -33,7 +34,12 @@ for i in "${files_to_convert[@]}"
 do
         :
         ffmpeg -loglevel panic -i "$i" -q:v 0 -q:a 0 "${i::-${#old_extension}}$new_extension"
-        mv "$i" "$i-old"
+        if [ "$safe_mode" = true ]
+                then
+                        mv "$i" "$i-old"
+                else
+                rm "$i"
+        fi
 done
 
 
