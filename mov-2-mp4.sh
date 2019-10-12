@@ -7,7 +7,7 @@ installation_path="/var/www/nextcloud/public_html"                 # Full path w
 old_extension=".mov"                                               # e.g. ".mov"
 new_extension=".mp4"                                               # e.g. ".mp4"
 safe_mode=true                                                     # true = rename file to .mov-old, false = permanently delete old .mov file
-ignoregrep="DfsrPrivate"                                           # Ignore stderr messages from find that match this grep (e.g. 'Permission denied' for some folder name)
+ignoregrep=""                                                      # Ignore stderr messages from find that match this grep (e.g. 'Permission denied' for some folder name)
 
 
 # Find files to convert
