@@ -3,7 +3,7 @@
 
 # Variables
 root_folder="/mnt/nextcloud/"                                      # Where to scan
-installation_path="/var/www/nextcloud/public_html"  # Full path where nextcloud is installed, must not end with '/'
+installation_path="/var/www/nextcloud/public_html"                 # Full path where nextcloud is installed, must not end with '/'
 old_extension=".mov"                                               # e.g. ".mov"
 new_extension=".mp4"                                               # e.g. ".mp4"
 safe_mode=true                                                     # true = rename file to .mov-old, false = permanently delete old .mov file
