@@ -10,7 +10,7 @@ An automatic script to convert .mov files to .mp4 (or anything `ffmpeg` supports
 6. (If you don't have it) download `ffmpeg`, e.g. `sudo apt install ffmpeg` (Ubuntu)
 
 # Customising for your environment
-Super simple - just change the four variables in the script:
+Super simple - just change these variables in the script:
 
 |Variable|Default|Comment|
 |---|---|---|
