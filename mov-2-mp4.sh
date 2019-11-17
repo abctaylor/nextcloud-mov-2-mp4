@@ -8,12 +8,16 @@ old_extension=".mov"                                               # e.g. ".mov"
 new_extension=".mp4"                                               # e.g. ".mp4"
 safe_mode=true                                                     # true = rename file to .mov-old, false = permanently delete old .mov file
 ignoregrep=""                                                      # Ignore stderr messages from find that match this grep (e.g. 'Permission denied' for some folder name)
-
+instance_id=$(openssl rand -hex 4)
+append_extension=-wip-$instance_id
 
 # Find files to convert
 files_to_convert=()
 while IFS=  read -r -d $'\0'; do
-    files_to_convert+=("$REPLY")
+    original_filename="$REPLY"
+    temporary_filename=$original_filename$append_extension
+    mv "$original_filename" "$temporary_filename"
+    files_to_convert+="$temporary_filename"
 done < <(find $root_folder -name "*$old_extension" -print0 2> >(grep -v $ignoregrep >&2))
 
 
@@ -33,7 +37,7 @@ eval folders_to_update=($(for i in  "${folders_to_update[@]}" ; do  echo "\"$i\"
 for i in "${files_to_convert[@]}"
 do
         :
-        ffmpeg -loglevel panic -i "$i" -q:v 0 -q:a 0 "${i::-${#old_extension}}$new_extension"
+        ffmpeg -loglevel panic -i "$i" -q:v 0 -q:a 0 "${i::-${#old_extension}-${#append_extension}}$new_extension"
         if [ "$safe_mode" = true ]
                 then
                         mv "$i" "$i-old"
