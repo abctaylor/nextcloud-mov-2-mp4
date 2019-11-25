@@ -15,9 +15,9 @@ append_extension=-wip-$instance_id
 files_to_convert=()
 while IFS=  read -r -d $'\0'; do
     original_filename="$REPLY"
-    temporary_filename=$original_filename$append_extension
+    temporary_filename="$original_filename$append_extension"
     mv "$original_filename" "$temporary_filename"
-    files_to_convert+="$temporary_filename"
+    files_to_convert+=("$temporary_filename")
 done < <(find $root_folder -name "*$old_extension" -print0 2> >(grep -v $ignoregrep >&2))
 
 
